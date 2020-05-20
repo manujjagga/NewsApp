@@ -1,5 +1,6 @@
 package com.example.news.di.module
 
+import com.example.news.main.owner.fragment.DashboardFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -7,5 +8,7 @@ import dagger.android.ContributesAndroidInjector
 @Module
 abstract class FragmentModule {
 
+    @ContributesAndroidInjector
+    abstract fun contributeDashboardFragment(): DashboardFragment
 
 }

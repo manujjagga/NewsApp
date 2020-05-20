@@ -5,6 +5,7 @@ import android.app.Application
 import androidx.room.Room
 import com.example.news.database.LocalDatabase
 import com.example.news.database.MainDao
+import com.example.news.main.repo.MainRepository
 import com.example.news.remote.WebService
 import com.example.news.remote.WebServiceHolder
 import com.example.news.util.helperUtils.AppConfig
@@ -30,6 +31,15 @@ class AppModule {
         return AppExecutors()
     }
 
+    @Provides
+    @Singleton
+    fun provideMainRepository(
+        dao: MainDao,
+        appExecutors: AppExecutors,
+        webservice: WebService
+    ): MainRepository {
+        return MainRepository(dao,appExecutors,webservice)
+    }
 
     @Provides
     fun provideGson(): Gson {
