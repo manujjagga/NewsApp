@@ -10,6 +10,9 @@ interface MainDao {
     @Query("select * from NewsMaster")
     fun fetchNewsItems():LiveData<List<ArticlesItem>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Query("delete from NewsMaster")
+    fun deleteNewsItems()
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertNewsItems(list: List<ArticlesItem>)
 }

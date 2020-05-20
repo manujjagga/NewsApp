@@ -3,6 +3,8 @@ package com.example.news.main.owner.fragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
@@ -10,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.news.R
 import com.example.news.binding.FragmentDataBindingComponent
@@ -41,19 +44,34 @@ class DashboardFragment : Fragment(), Injectable {
         viewModel = ViewModelProvider(this, viewModelFactory)[DashboardViewModel::class.java]
         viewModel.init()
 
-        adapter = NewsListAdapter(appExecutors, dataBindingComponent) {
-
+        adapter = NewsListAdapter(appExecutors, dataBindingComponent) { it, position, extras ->
+            val action = DashboardFragmentDirections.newsDetailFragment(it, position)
+            findNavController().navigate(action, extras)
         }
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireActivity())
 
+        binding.swipeRefresh.setOnRefreshListener {
+            viewModel.refreshData()
+        }
+
         viewModel.news.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.ERROR -> {
+                    binding.swipeRefresh.isRefreshing=false
+                    binding.progressBar.visibility = GONE
                 }
                 Status.LOADING -> {
+                    binding.swipeRefresh.isRefreshing=true
+                    it.data?.let {
+                        binding.progressBar.visibility = if (it.isEmpty()) VISIBLE else GONE
+                    } ?: run {
+                        binding.progressBar.visibility = VISIBLE
+                    }
                 }
                 Status.SUCCESS -> {
+                    binding.swipeRefresh.isRefreshing=false
+                    binding.progressBar.visibility = GONE
                     it.data?.apply {
                         adapter.submitList(this)
                     }

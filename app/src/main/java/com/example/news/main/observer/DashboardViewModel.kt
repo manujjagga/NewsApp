@@ -36,11 +36,16 @@ class DashboardViewModel @Inject constructor(val repo: MainRepository) : ViewMod
         apiCall.postValue("1")
     }
 
+    fun refreshData(){
+        apiCall.postValue("2")
+    }
+
     init {
         news = Transformations.switchMap(apiCall) {
             when (apiCall.value) {
                 null -> AbsentLiveData.create()
-                else -> repo.fetchNewsItems()
+                "1" -> repo.fetchNewsItems()
+                else->repo.fetchNewsItems(true)
             }
         }
 

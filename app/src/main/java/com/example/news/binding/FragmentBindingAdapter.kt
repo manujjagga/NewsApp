@@ -37,4 +37,14 @@ class FragmentBindingAdapter @Inject constructor(val fragment: Fragment) {
         }
     }
 
+    @BindingAdapter("imageUrlCenterCrop")
+    fun bindImageCemterCrop(imageView: ImageView, url: String?) {
+        url?.let {
+            Glide.with(fragment).load(it)
+                .apply(RequestOptions().centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(
+                    R.drawable.ic_placeholder))
+                .into(imageView)
+        }
+    }
+
 }

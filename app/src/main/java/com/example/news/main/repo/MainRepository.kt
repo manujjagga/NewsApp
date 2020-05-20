@@ -17,10 +17,12 @@ class MainRepository @Inject constructor(
     private val webservice: WebService
 ) {
 
-    fun fetchNewsItems(): LiveData<Resource<List<ArticlesItem>>> {
+    fun fetchNewsItems(refreshing:Boolean=false): LiveData<Resource<List<ArticlesItem>>> {
         return object : NetworkBoundResource<List<ArticlesItem>, NewsApiResponse>(executor) {
             override fun saveCallResult(item: NewsApiResponse) {
                 item.articles?.apply {
+                    if(refreshing)
+                        dao.deleteNewsItems()
                     dao.insertNewsItems(this)
                 }
             }

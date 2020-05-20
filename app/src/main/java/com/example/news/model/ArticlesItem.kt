@@ -10,9 +10,6 @@ import kotlinx.android.parcel.Parcelize
 @Entity(tableName = "NewsMaster")
 data class ArticlesItem(
 
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
-
     @field:SerializedName("publishedAt")
     val publishedAt: String? = null,
 
@@ -31,6 +28,7 @@ data class ArticlesItem(
     @field:SerializedName("title")
     val title: String? = null,
 
+    @PrimaryKey
     @field:SerializedName("url")
     val url: String = "",
 

@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.FragmentNavigator
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.DiffUtil
 import com.example.news.R
 import com.example.news.databinding.LayoutNewsItemBinding
@@ -14,13 +16,13 @@ import com.example.news.util.viewUtils.DataBoundListAdapter
 class NewsListAdapter(
     appExecutors: AppExecutors,
     val dataBindingComponent: DataBindingComponent,
-    val callback: (ArticlesItem) -> Unit
+    val callback: (ArticlesItem, Int, FragmentNavigator.Extras) -> Unit
 ) : DataBoundListAdapter<ArticlesItem, LayoutNewsItemBinding>(
 
     appExecutors = appExecutors,
     diffCallback = object : DiffUtil.ItemCallback<ArticlesItem>() {
         override fun areItemsTheSame(oldItem: ArticlesItem, newItem: ArticlesItem): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem.url == newItem.url
         }
 
         override fun areContentsTheSame(oldItem: ArticlesItem, newItem: ArticlesItem): Boolean {
@@ -38,7 +40,6 @@ class NewsListAdapter(
                 dataBindingComponent
             )
 
-
         return binding
     }
 
@@ -48,8 +49,18 @@ class NewsListAdapter(
         position: Int
     ) {
         binding.item = item
+        binding.imageView.transitionName = "imageView$position"
+        binding.title.transitionName = "title$position"
+        binding.source.transitionName = "source$position"
+        binding.date.transitionName = "date$position"
         binding.root.setOnClickListener {
-            callback.invoke(item)
+            val extras = FragmentNavigatorExtras(
+                binding.imageView to "imageView$position",
+                binding.title to "title$position",
+                binding.source to "source$position",
+                binding.date to "date$position"
+            )
+            callback.invoke(item, position, extras)
         }
     }
 

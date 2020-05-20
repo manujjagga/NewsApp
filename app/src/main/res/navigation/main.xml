@@ -6,7 +6,27 @@
     <fragment
         android:id="@+id/dashboardFragment"
         android:label="DashboardFragment"
-        android:name="com.example.news.main.owner.fragment.DashboardFragment"
-        />
+        android:name="com.example.news.main.owner.fragment.DashboardFragment">
+
+        <action
+            android:id="@+id/newsDetailFragment"
+            app:destination="@id/newsDetailFragment"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/newsDetailFragment"
+        android:label="NewsDetailFragment"
+        android:name="com.example.news.main.owner.fragment.NewsDetailFragment">
+
+        <argument
+            android:name="newsItem"
+            app:argType="com.example.news.model.ArticlesItem"/>
+
+        <argument
+            android:name="transitionPosition"
+            app:argType="integer"/>
+
+    </fragment>
 
 </navigation>
