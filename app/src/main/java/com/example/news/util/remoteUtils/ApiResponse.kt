@@ -71,7 +71,7 @@ class ApiResponse<T> {
                 return null
             }
             return try {
-                Integer.parseInt(matcher.group(1))
+                Integer.parseInt(matcher.group(1)!!)
             } catch (ex: NumberFormatException) {
                 Log.e("Parse", "cannot parse next page from $next")
                 null
