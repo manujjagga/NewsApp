@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.example.news.model.ArticlesItem" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground">
+
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:id="@+id/imageView"
+            app:imageUrlCenterCrop="@{item.urlToImage}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/background_gradient"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_margin="@dimen/layout_margin_extra_large"
+            android:src="@drawable/ic_back_circle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/detail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/layout_margin_extra_large"
+            android:layout_marginEnd="@dimen/layout_margin_extra_large"
+            android:layout_marginBottom="@dimen/layout_margin_extra_large"
+            android:fontFamily="@font/roboto_slab_regular"
+            android:text="@{item.description}"
+            android:textColor="@color/colorFontLight"
+            android:textSize="@dimen/text_size_small"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Boeing Dedicates $100 million to victims of 737 crash." />
+
+
+        <TextView
+            android:id="@+id/source"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/layout_margin_extra_large"
+            android:layout_marginBottom="@dimen/layout_margin_large"
+            android:fontFamily="@font/roboto_slab_regular"
+            android:text="@{item.source.name}"
+            android:textColor="@color/colorFontBold"
+            android:textSize="@dimen/text_size_large"
+            app:layout_constraintBottom_toTopOf="@id/detail"
+            app:layout_constraintEnd_toStartOf="@id/date"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="CNN.com" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/layout_margin_extra_large"
+            android:fontFamily="@font/roboto_slab_regular"
+            android:gravity="end"
+            android:textColor="@color/colorFontBold"
+            android:textSize="@dimen/text_size_large"
+            app:date="@{item.publishedAt}"
+            app:layout_constraintBottom_toBottomOf="@id/source"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/source"
+            app:layout_constraintTop_toTopOf="@id/source"
+            tools:text="27-09-2020" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/layout_margin_extra_large"
+            android:layout_marginEnd="@dimen/layout_margin_extra_large"
+            android:layout_marginBottom="@dimen/layout_margin_extra_extra_large"
+            android:fontFamily="@font/roboto_slab_bold"
+            android:text="@{item.title}"
+            android:textColor="@color/colorFontBold"
+            android:textSize="@dimen/text_size_toolbar_title"
+            app:layout_constraintBottom_toTopOf="@id/source"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Boeing Dedicates $100 million to victims of 737 crash." />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
