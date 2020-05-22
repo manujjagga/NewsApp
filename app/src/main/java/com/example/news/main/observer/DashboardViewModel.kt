@@ -8,16 +8,18 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.example.news.main.repo.MainRepository
 import com.example.news.model.ArticlesItem
+import com.example.news.testing.OpenForTesting
 import com.example.news.util.helperUtils.AbsentLiveData
 import com.example.news.util.remoteUtils.Resource
 import javax.inject.Inject
 
+@OpenForTesting
 class DashboardViewModel @Inject constructor(val repo: MainRepository) : ViewModel(), Observable {
     val callbacks: PropertyChangeRegistry by lazy { PropertyChangeRegistry() }
 
     val apiCall = MutableLiveData<String>()
 
-    var news: LiveData<Resource<List<ArticlesItem>>>
+    lateinit var news: LiveData<Resource<List<ArticlesItem>>>
 
 
     override fun removeOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {

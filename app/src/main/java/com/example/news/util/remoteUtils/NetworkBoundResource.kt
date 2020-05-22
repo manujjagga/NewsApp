@@ -21,7 +21,6 @@ constructor(private val appExecutors: AppExecutors) {
     private val result = MediatorLiveData<Resource<ResultType>>()
 
     init {
-        Log.d(Thread.currentThread().toString().toString(), "init_NBR")
         val dbSource = loadFromDb()
         result.addSource(dbSource) { resultType ->
             result.removeSource(dbSource)

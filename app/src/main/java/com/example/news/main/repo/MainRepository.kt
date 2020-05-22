@@ -5,12 +5,14 @@ import com.example.news.database.MainDao
 import com.example.news.model.ArticlesItem
 import com.example.news.model.NewsApiResponse
 import com.example.news.remote.WebService
+import com.example.news.testing.OpenForTesting
 import com.example.news.util.helperUtils.AppExecutors
 import com.example.news.util.remoteUtils.ApiResponse
 import com.example.news.util.remoteUtils.NetworkBoundResource
 import com.example.news.util.remoteUtils.Resource
 import javax.inject.Inject
 
+@OpenForTesting
 class MainRepository @Inject constructor(
     private val dao: MainDao,
     private val executor: AppExecutors,

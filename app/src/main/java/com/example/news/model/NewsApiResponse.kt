@@ -8,7 +8,7 @@ data class NewsApiResponse(
 	val totalResults: Int = 0,
 
 	@field:SerializedName("articles")
-	val articles: List<ArticlesItem>? = null,
+	val articles: List<ArticlesItem> = emptyList(),
 
 	@field:SerializedName("status")
 	val status: String = ""
